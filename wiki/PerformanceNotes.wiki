@@ -1,6 +1,12 @@
 #summary Notes on performance and possible improvements
 
-Notes from issue 16:
+=Summary=
+
+The biggest performance gains can be had from representing sets of points as a primitive. Within this primitive, I can avoid rendering the point marker for each point by rendering to a group once and then filling from the predrawn pattern for each point. This should make a set of points almost as fast as a path.
+
+Paths slow significantly when put in a frame; this is suspicious, so this should be the next subject of investigation. This might result from transformation inefficiencies.
+
+==Notes from issue 16==
 
 First test results:
 {{{
@@ -59,3 +65,4 @@ Making the path is fast, but drawing operations are slow. With a bit of fiddling
 }}}
 
 Here transformations are turned back on and paths are rendering point shapes instead of a true path. If I rewrite point as a set, it should be almost as fast as path.
+
