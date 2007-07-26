@@ -47,3 +47,9 @@ Drawing the point shapes might significantly slower than drawing paths, but sinc
 }}}
 
 Drawing all 100k points to a path before filling caused cairo to run out of memory die, so this represents a compromise where I make paths for 1000 points before filling and continuing on. Looks like this is just slow. Since I'm duplicating the same shape, is there a way to render once and copy to each location?
+
+Possibilities
+ * Copy the path with cairo_copy_path and render it back with cairo_append_path. This might be good if cairo_arc is the problem, and bad if filling is still slow.
+ * Draw the shape to a group, pop the group as a source, and paint it back in different places.
+
+What do the cairo docs/groups say?
