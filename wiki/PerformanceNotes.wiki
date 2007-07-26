@@ -52,4 +52,10 @@ Possibilities
  * Copy the path with cairo_copy_path and render it back with cairo_append_path. This might be good if cairo_arc is the problem, and bad if filling is still slow.
  * Draw the shape to a group, pop the group as a source, and paint it back in different places.
 
-What do the cairo docs/groups say?
+Making the path is fast, but drawing operations are slow. With a bit of fiddling, the second idea works quite well. Instead of popping the group as source, I need to pop it and reset it after each translation to to the new point location, but it's fast:
+{{{
+1.396088s render 100k path
+1.844115s render 100k path in frame
+}}}
+
+Here transformations are turned back on and paths are rendering point shapes instead of a true path. If I rewrite point as a set, it should be almost as fast as path.
