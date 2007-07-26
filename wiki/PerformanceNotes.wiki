@@ -37,3 +37,13 @@ Cutting out cairo drawing for points drops the time significantly:
 0.224014s render 100k points
 0.432027s render 100k points in frame
 }}}
+
+Drawing the point shapes might significantly slower than drawing paths, but since I represent points individually but the entire path as a single primitive, this could also be the cause. I'll change path to render point shapes to test it out:
+{{{
+4.084254s render 100k points
+4.308270s render 100k points in frame
+3.856241s render 100k path
+3.924245s render 100k path in frame
+}}}
+
+Drawing all 100k points to a path before filling caused cairo to run out of memory die, so this represents a compromise where I make paths for 1000 points before filling and continuing on. Looks like this is just slow. Since I'm duplicating the same shape, is there a way to render once and copy to each location?
