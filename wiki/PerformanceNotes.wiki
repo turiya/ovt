@@ -1,0 +1,39 @@
+#summary Notes on performance and possible improvements
+
+Notes from issue 16:
+
+First test results:
+{{{
+4.376273s render 100k points
+4.792301s render 100k points in frame
+1.156071s render 100k path
+3.396213s render 100k path in frame
+}}}
+
+I'm puzzled that frame rendering slows paths much more than points. My first guess
+was that transformations have something to do with it. If I change
+transform_scene_node to return the node without transforming it, the path falls back
+in line:
+{{{
+4.096256s render 100k points
+4.320270s render 100k points in frame
+1.132072s render 100k path
+1.192074s render 100k path in frame
+}}}
+
+Nulling out cairo drawing for paths drops the time to near zero:
+{{{
+0.000000s render 100k path
+0.064004s render 100k path in frame
+}}}
+
+Without making cairo faster, it looks like all I can do for paths is improve
+transformation time.
+
+Disabling antialiasing makes paths about .3s faster.
+
+Cutting out cairo drawing for points drops the time significantly:
+{{{
+0.224014s render 100k points
+0.432027s render 100k points in frame
+}}}
