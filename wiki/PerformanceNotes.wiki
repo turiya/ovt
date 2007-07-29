@@ -63,3 +63,37 @@ Making the path is fast, but drawing operations are slow. With a bit of fiddling
 1.396088s render 100k path
 1.844115s render 100k path in frame
 }}}
+
+==Notes from applying optimization==
+
+I changed the point primitive to hold a list instead of a single point:
+{{{
+3.792237s render 100k points
+4.184262s render 100k points in frame
+1.164072s render 100k path
+3.420214s render 100k path in frame
+}}}
+
+Now to apply the optimization and avoid redrawing the shape for each instance:
+{{{
+1.344084s render 100k points
+1.912119s render 100k points in frame
+1.128070s render 100k path
+3.324208s render 100k path in frame
+}}}
+
+Success! Now if I just figure out why paths are so slow in the frame, then I'll be done.
+
+Mysterious. If I remove all cairo calls, then it appears the frame scaling only takes .2 seconds:
+{{{
+0.000000s render 100k path
+0.208013s render 100k path in frame
+}}}
+
+If I create a path from these points, the frame time jumps dramatically:
+{{{
+0.028002s render 100k path
+1.092068s render 100k path in frame
+}}}
+
+I thought maybe it had something to do with the actual values used, so I changed the range of the random floats, but this had no effect. If it has something to do with the transformations, then changing the frame to use fixed scaling should drop the time. Ok, changing to fixed has no effect. Could this be a GC issue? Let's flip the order in which tests are conducted. Nothing. Even with the fixed scaling, the frame is still applying transformations, and I do have those earlier results which say transformations account for the difference. I'll try to reproduce those.
