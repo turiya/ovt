@@ -103,3 +103,7 @@ Making Primitive.transform act as identity for paths drops the time by .2s, cons
 Inspecting the output from the tests shows that the path by itself isn't rendering anything. If everything is clipped, this would explain the difference. Ok, fixed this and now both times are in at around 3s. I would have preferred that both dropped to less than 1s, but alas.
 
 Conclusion is this: ovt code on 100k points takes about 0.2s. cairo code on 100k points takes 1.7s for points, 3.1s for lines. Optimization done.
+
+==Testing with Cairo==
+
+Always ensure cairo rendering tests are truly rendering the same things. The difference between paths in and out of frames probably had several causes, but scaling was at the root of them. When all points had coordinates in [0, 1] and the path was rendered outside a frame, cairo could render very quickly. Scaling the points to fill the 100x100 surface slowed cairo considerably, and not because of the scaling operation but because of cairo.
