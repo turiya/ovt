@@ -2,9 +2,9 @@
 
 =Summary=
 
-The biggest performance gains can be had from representing sets of points as a primitive. Within this primitive, I can avoid rendering the point marker for each point by rendering to a group once and then filling from the predrawn pattern for each point. This should make a set of points almost as fast as a path.
+Optimization greatly increased performance for points. Cairo is generally the main cause of slow performance. For 100k points, OVT accounts for roughly 0.2s. Cairo code takes anywhere from 1.7s for points to 3.1s for lines. Until OVT supports a different renderer, further optimization is not worthwhile.
 
-Paths slow significantly when put in a frame; this is suspicious, so this should be the next subject of investigation. This might result from transformation inefficiencies.
+Results below which show paths without frames to be much faster than those within frames are erroneous; I was not rendering the paths properly outside frames. 
 
 ==Notes from issue 16==
 
