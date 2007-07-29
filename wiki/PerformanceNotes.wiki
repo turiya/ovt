@@ -97,3 +97,9 @@ If I create a path from these points, the frame time jumps dramatically:
 }}}
 
 I thought maybe it had something to do with the actual values used, so I changed the range of the random floats, but this had no effect. If it has something to do with the transformations, then changing the frame to use fixed scaling should drop the time. Ok, changing to fixed has no effect. Could this be a GC issue? Let's flip the order in which tests are conducted. Nothing. Even with the fixed scaling, the frame is still applying transformations, and I do have those earlier results which say transformations account for the difference. I'll try to reproduce those.
+
+Making Primitive.transform act as identity for paths drops the time by .2s, consistent with the observation above that shows .2s for scaling. Making SceneGraph.transform_scene_node act as identity does nothing further.
+
+Inspecting the output from the tests shows that the path by itself isn't rendering anything. If everything is clipped, this would explain the difference. Ok, fixed this and now both times are in at around 3s. I would have preferred that both dropped to less than 1s, but alas.
+
+Conclusion is this: ovt code on 100k points takes about 0.2s. cairo code on 100k points takes 1.7s for points, 3.1s for lines. Optimization done.
