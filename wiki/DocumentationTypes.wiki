@@ -17,7 +17,7 @@ This strikes me as cool, but is it useful? Very few ovt features go beyond the s
 
 =Examples=
 
-Self-contained programs meant to give the user a starting point for writing their own visualizations. 
+Self-contained programs meant to give the user a starting point for writing their own visualizations. Not meant to be exhaustive.
 
 
 =Developer/Design Docs=
