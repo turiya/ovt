@@ -1,0 +1,13 @@
+OCAMLINCLUDES += $(ROOT)/lib
+OCAML_LIBS += $(ROOT)/lib/libovt
+OCAMLPACKS += cairo
+
+section
+	OCAMLFLAGS += -thread 
+	OCAMLFINDFLAGS += -predicates gtk
+	OCAMLPACKS += lablgtk2
+	OCAMLINCLUDES += $(ROOT)/lib/gtk
+	OCAML_LIBS += $(ROOT)/lib/gtk/libovtGtk
+	.SUBDIRS: $(if $(OVT_USE_GTK), gui_minimal gui_dynamic)
+
+.SUBDIRS: minimal

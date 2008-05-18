@@ -1,0 +1,14 @@
+FILES[] = 
+	main
+
+OCAMLFLAGS += -thread 
+
+OCAMLINCLUDES += $(ROOT)/lib/gtk
+OCAML_LIBS += $(ROOT)/lib/gtk/libovtGtk
+
+OCAMLFINDFLAGS = -predicates gtk
+OCAMLPACKS += lablgtk2
+
+OVT_GUI = $(OCamlProgram ovt_gui, $(FILES))
+
+.DEFAULT: $(OVT_GUI)

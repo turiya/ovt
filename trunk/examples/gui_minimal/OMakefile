@@ -1,0 +1,6 @@
+FILES[] = 
+	gui_minimal
+
+OVT_EX_GUI_MINIMAL = $(OCamlProgram ovt_ex_gui_minimal, $(FILES))
+
+.DEFAULT: $(OVT_EX_GUI_MINIMAL)

@@ -1,0 +1,11 @@
+FILES[] = 
+	visual
+	suite
+
+OVT_VISUAL = $(OCamlProgram ovt_visual, $(FILES))
+
+.PHONY: check
+check: $(OVT_VISUAL)
+	$(OVT_VISUAL) && python gallery.py
+
+.DEFAULT: $(OVT_VISUAL)

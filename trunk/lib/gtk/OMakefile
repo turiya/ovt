@@ -1,0 +1,16 @@
+FILES[] = 
+	gui
+
+OCAMLINCLUDES += $(ROOT)/lib
+
+OCAMLFLAGS = -for-pack OvtGtk -thread 
+
+OCAMLPACKS += lablgtk2
+
+section
+	OCAMLFLAGS = # disable -for-pack when using -pack
+	OVT_GTK_PKG = $(OCamlPackage ovtGtk, $(FILES))
+	OVT_GTK_LIB = $(OCamlLibrary libovtGtk, ovtGtk)
+	export OVT_GTK_LIB
+
+.DEFAULT: $(OVT_GTK_LIB)

@@ -1,0 +1,73 @@
+=================================
+OCaml Visualization Toolkit (OVT)
+=================================
+
+OCaml Summer Project Midterm Release (2007-06-29)
+
+Dependencies
+============
+
+OVT depends on several libraries to render and report test
+results. Dependencies may be built from sources found at the
+listed urls. Some Linux distributions provide the dependencies as
+pre-built packages. Package names for Ubuntu and Fedora are listed
+below. Packages for Ubuntu are verified; for Fedora, they are not.
+
+Ubuntu Quickstart
+-----------------
+
+The Ubuntu commands and packages listed here were verified under
+Ubuntu 6.10 (Edgy Eft). Package names may differ across versions.
+
+Install all dependencies::
+
+    sudo aptitude install libcairo-ocaml-dev libounit-ocaml-dev \
+        python-kid python-imaging
+
+Rendering Dependencies
+----------------------
+
+* cairo 
+    :url: http://cairographics.org/
+    :versions: 1.2.4-1ubuntu2
+    :ubuntu: libcairo2-dev
+    :fedora: cairo-devel
+* cairo ocaml bindings
+    :url: http://cairographics.org/cairo-ocaml/
+    :versions: 20060517-1
+    :ubuntu: libcairo-ocaml-dev
+    :fedora: n/a
+
+
+Test Dependencies
+-----------------
+
+* ounit 
+    :url: http://www.xs4all.nl/~mmzeeman/ocaml/
+    :versions: 1.0.2-4
+    :ubuntu: libounit-ocaml-dev
+    :fedora: n/a
+* kid 
+    :url: http://kid-templating.org/
+    :versions: 0.9.1-3
+    :ubuntu: python-kid
+    :fedora: python-kid
+* python imaging library
+    :url: http://www.pythonware.com/products/pil/
+    :versions: 1.1.5-10ubuntu1
+    :ubuntu: python-imaging
+    :fedora: python-imaging
+
+Build
+=====
+
+Build the library and test suite::
+
+    make
+
+Run the unit and visual tests::
+
+    make check
+
+After running the visual tests, direct your web browser to
+``test/visual/gallery/all.html`` to view the results.

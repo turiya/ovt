@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://purl.org/kid/ns#">
+    <head>
+        <title py:content="title">Title</title>
+        <link rel="stylesheet" href="gallery.css" type="text/css"/>
+    </head>
+    <body>
+        <h1 py:content="title">Title</h1>
+        <div>
+            <a href="all.html" py:if="type == 'failed'">View all tests</a>
+            <a href="failed.html" py:if="type == 'all'">View failed tests</a>
+        </div>
+
+        <br/>
+
+        <table>
+            <div py:for="t in tests" py:strip="True">
+                <tr py:attrs="{ 'class': t.header_class }">
+                    <td class="index">
+                        <b py:content="t.index"/>
+                    </td>
+                    <div py:if="t.baseline_description == t.most_recent_description" py:strip="True">
+                        <td class="description" colspan="2" py:if="t.baseline_description" py:content="t.baseline_description">
+                                unchanged description
+                        </td>
+                        <td class="description" py:if="not t.baseline_description">
+                                <em>no description</em>
+                        </td>
+                    </div>
+                    <div py:if="t.baseline_description != t.most_recent_description" py:strip="True">
+                        <td class="description">
+                            <b>Baseline:</b>
+                            <span py:replace="t.baseline_description" py:if="t.baseline_description"/>
+                            <em py:if="not t.baseline_description">
+                                not found
+                            </em>
+                        </td>
+                        <td class="description">
+                            <b>Most recent:</b>
+                            <span py:replace="t.most_recent_description" py:if="t.most_recent_description"/>
+                            <em py:if="not t.most_recent_description">
+                                not found
+                            </em>
+                        </td>
+                    </div>
+                </tr>
+
+                <tr>
+                    <td class="index"/>
+                    <td class="image">
+                        <span py:if="t.baseline_png">
+                            <img alt="baseline" py:attrs="src=t.baseline_png"/>
+                        </span>
+                        <span py:if="not t.baseline_png">
+                            <em>not found</em>
+                        </span>
+                    </td>
+                    <td class="image">
+                        <span py:if="t.most_recent_png">
+                            <img alt="most recent" py:attrs="src=t.most_recent_png"/>
+                        </span>
+                        <span py:if="not t.most_recent_png">
+                            <em>not found</em>
+                        </span>
+                    </td>
+                </tr>
+            </div>
+        </table>
+
+        <div>
+            Generated <span py:replace="time">time</span>.
+        </div>
+    </body>
+</html>

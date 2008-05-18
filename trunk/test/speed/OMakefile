@@ -1,0 +1,6 @@
+FILES[] = 
+	main
+
+OVT_SPEED = $(OCamlProgram ovt_speed, $(FILES))
+
+.DEFAULT: $(OVT_SPEED)
