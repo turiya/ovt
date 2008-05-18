@@ -1,0 +1,13 @@
+FILES[] = 
+	intervalTest
+	unit
+
+OCAMLPACKS += oUnit
+
+OVT_UNIT = $(OCamlProgram ovt_unit, $(FILES))
+
+.PHONY: check
+check: $(OVT_UNIT)
+	$(OVT_UNIT)
+
+.DEFAULT: $(OVT_UNIT)

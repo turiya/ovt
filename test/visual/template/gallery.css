@@ -1,0 +1,13 @@
+table { border-collapse: collapse; }
+
+tr.success { background-color: whitesmoke;
+             border-top: 1px solid lightgray; }
+tr.failure { background-color: mistyrose;
+             border-top: 1px solid red; }
+
+td.index { width: 1cm; 
+           vertical-align: top; }
+td.description { width: 256px;
+                 vertical-align: top; }
+td.image { width: 256px;
+           text-align: center; }

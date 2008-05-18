@@ -1,0 +1,51 @@
+FILES[] = 
+	style
+	attribute
+	util
+	orientation
+	color
+	point
+	interval
+	box
+	bin
+	transformation
+	placement
+	primitive
+	sceneGraph
+	legend
+	dataSet
+	axis
+	grid
+	frame
+	render
+
+OCAMLFLAGS = -for-pack Ovt
+
+OCAMLPACKS += cairo
+
+section
+	OCAMLFLAGS = # disable -for-pack when using -pack
+	OVT_PKG = $(OCamlPackage ovt, $(FILES))
+	OVT_LIB = $(OCamlLibrary libovt, ovt)
+	export OVT_LIB
+
+.DEFAULT: $(OVT_LIB)
+
+.PHONY: doc
+DOCPATH = $(ROOT)/doc/html
+doc: $(OVT_LIB)
+	mkdir -p $(DOCPATH)
+	ocamldoc -sort -html -intro intro\
+		-d $(ROOT)/doc/html \
+		-I $(CAIROPATH) \
+		$(find . -name *.mli)
+
+.PHONY: install
+install: $(OVT_LIB)
+	ocamlfind install \
+		$(if $(not $(OVT_USE_GTK)), -patch-rmpkg gtk) \
+		ovt $(ROOT)/lib/META
+# sadly, this is so broken. need net to figure it out! 
+	$(OCamlLibraryInstall tagwhatsthat, /home/cap/tmp, libovt, $(find . -name *.mli))
+
+.SUBDIRS: $(if $(OVT_USE_GTK), gtk)

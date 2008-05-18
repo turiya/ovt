@@ -1,0 +1,5 @@
+OCAMLINCLUDES += $(ROOT)/lib
+OCAML_LIBS += $(ROOT)/lib/libovt
+OCAMLPACKS += cairo
+
+.SUBDIRS: unit visual $(if $(OVT_USE_GTK), gui) speed

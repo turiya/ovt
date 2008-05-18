@@ -1,0 +1,3 @@
+gallery.py generates html here.
+
+This directory is in svn to exclude generated files with svn:ignore.

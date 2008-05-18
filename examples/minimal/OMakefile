@@ -1,0 +1,6 @@
+FILES[] = 
+	minimal
+
+OVT_EX_MINIMAL = $(OCamlProgram ovt_ex_minimal, $(FILES))
+
+.DEFAULT: $(OVT_EX_MINIMAL)

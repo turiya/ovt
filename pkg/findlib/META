@@ -1,0 +1,4 @@
+name = "ovt"
+version = "20070818"
+description = "A visualization framework for OCaml"
+requires=ocaml-cairo

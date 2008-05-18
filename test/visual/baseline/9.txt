@@ -1,0 +1,1 @@
+translation with text; text should line up vertically

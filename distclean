@@ -1,0 +1,5 @@
+#/bin/sh
+
+omake clean
+find . -name "*.omc" -exec rm {} \;
+rm .omakedb*

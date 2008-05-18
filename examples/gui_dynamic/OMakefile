@@ -1,0 +1,6 @@
+FILES[] = 
+	gui_dynamic
+
+OVT_EX_GUI_DYNAMIC = $(OCamlProgram ovt_ex_gui_dynamic, $(FILES))
+
+.DEFAULT: $(OVT_EX_GUI_DYNAMIC)

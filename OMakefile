@@ -1,0 +1,11 @@
+OCAMLDEP_MODULES_ENABLED = true
+USE_OCAMLFIND = true
+
+NATIVE_ENABLED = true
+BYTE_ENABLED = false
+
+.SUBDIRS: lib test examples
+
+.PHONY: clean
+clean:
+	rm -f $(filter-proper-targets $(ls R, .))

@@ -1,0 +1,156 @@
+=================================
+OCaml Visualization Toolkit (OVT)
+=================================
+
+Submitted 2007-03-06 as an OCaml Summer Project proposal.
+
+This document is valid reStructuredText [1]_. As raw text, it should be viewed in a fixed-width font.
+
+Contact
+=======
+
+| Cap Petschulat
+| http://groups.google.com/group/osp2007-ovt
+
+Position
+--------
+
+I am a first year master's student in Mathematics at Boise State University.
+
+Abstract
+========
+
+The OCaml Visualization Toolkit (OVT) defines concept, layout, and graphic primitives for 2- and 3-dimensional scientific visualization. OVT does not offer sophisticated data analysis or highly specialized plot routines; rather, it provides widely applicable structures and methods. OVT offers more useful abstractions than vector graphics libraries without restricting visualization to the plotting commands commonly found in computer algebra systems. To ensure usefulness and avoid bloat, development advances by expanding a library of real-world examples.
+
+Goals
+=====
+
+OVT provides primitives and routines to create visualizations inspired by both applied and pure mathematics:
+
+* case studies from the NIST/SEMATECH e-Handbook of Statistical Methods [2]_
+* diagrams from standard proofs in 1-, 2-, and 3-dimensional calculus
+
+As time permits, OVT incorporates additional features as suggested by the sponsoring organization and the OCaml community.
+
+Design
+======
+
+OVT wraps basic visualizations in functions suitable for interactive use in the OCaml top level. For advanced use, OVT exposes concept, layout, and graphic primitives to the developer.
+
+Basic
+-----
+
+At minimum, OVT wraps the following visualizations as individual functions:
+
+* 2- and 3-dimensional point, line, curve, and surface plots
+* scatter plots
+* bar charts
+
+Advanced
+--------
+
+To create a visualization, the developer models the concepts to be visualized and defines their layout. From this, OVT generates a scene graph and renders the graphic primitives.
+
+Consider a 1-dimensional plot of ages labeled with names. Following the OVT model, this is expressed as follows:
+
+1. Model the concept: "Associate the label 'Leroy' with the data 38."
+2. Define the layout: "Locate labels above, to the right of, and at an angle to their associated data."
+3. Generate the visualization: "What an informative picture!"
+
+Implementation
+==============
+
+From the generated scene graph, OVT renders primitives with Cairo and OpenGL.
+
+Cairo is a well supported open source 2d vector graphics library. It renders to screen and disk in a variety of vector and raster formats. Dynamic visualizations in OVT may benefit from hardware acceleration in Cairo, which is under active development.
+
+OVT uses OpenGL via the LablGL bindings to render raster images to the screen and disk. Because OpenGL generates only raster output, OVT does not offer vector output from 3d scenes.
+
+Development
+===========
+
+OVT employs modern software development practices. 
+
+Testing
+-------
+
+OVT's components require several testing strategies.
+
+Concept and layout primitives, as pure OCaml, are unit tested with the OUnit framework. Code is written test-first and unit tests run with each build.
+
+Graphic primitives and complete visualizations are tested by visual inspection with the aid of an HTML test gallery. The gallery displays established baseline outputs beside the current outputs. Example code comprises a significant part of these tests.
+
+OVT maintains a 10-minute manual procedure to test interactive features in the top level. The procedure is run, at minimum, prior to each release.
+
+Examples
+--------
+
+Development progresses by expanding a library of examples which, run regularly, double as tests. Interested developers may inspect the examples and their output on the web with the guarantee that each example works as expected in the latest version. Some examples gather data from the OVT project itself, ensuring usability in non-trivial applications. 
+
+Documentation
+-------------
+
+In maintaining an extensive collection of examples, OVT is somewhat self-documenting. For precise reference, OVT mimics the OCaml standard library by maintaining in-line comments suitable for ocamldoc.
+
+Coding Standards
+----------------
+
+OVT code complies to the Caltech OCaml Style Guide [3]_. Readability is important, so OVT emphasizes descriptive symbol names and named parameters.
+
+Management
+----------
+
+OVT is managed with Google Project Hosting. Small changes are frequently committed to the SVN repository. Tasks and feature additions are managed with the issue tracker.
+
+Schedule
+========
+
+OVT provides a simple working implementation in the first week. Incremental development thereafter ensures OVT is useful for the OCaml community at all stages.
+
+* Week 1: Configure web hosting, build environment, dependencies, unit tests, and visual test gallery. Write graphic and layout primitives to visualize points. Render with Cairo.
+* Week 2: Extend rendering to OpenGL. Add graphic primitives for lines, curves, and surfaces.
+* Week 3: Add graphic primitives for axes, ticks, labels, and legends.
+* Week 4: Add concept primitives to associate data with labels and scale data to axes.
+* Week 5: Add layout primitives for multiple axes and the placement of labels, ticks, and legends.
+* Week 6: Wrap visualizations for use in the top level. Allow simple animation by changing the visualized data.
+* Week 7: Complete and package a release. Solicit feedback from the OCaml community.
+* Week 8: Add primitives for filled regions, error bars, and arrows. Allow interactive rotation and zoom.
+* Week 9: Incorporate community suggestions. Polish examples from the NIST/SEMATECH e-Handbook of Statistical Methods.
+* Week 10: Polish diagrams from calculus. Emphasize the development of Darboux integration in 1 and 2 dimensions (producing 2- and 3-dimensional visualizations, respectively).
+* Week 11: Consult graphic design literature (e.g., Tufte [4]_) and make aesthetic improvements.
+* Week 12: Complete and package a release.
+
+Human Factors
+=============
+
+Availability
+------------
+
+I am available from May 14 to August 25. I will devote between 20 and 40 hours per week to OVT as development demands.
+
+Experience
+----------
+
+While completing my bachelor's, I worked as lead programmer at a startup developing cell-level biological simulations. I designed and implemented visualization routines using C++, Python, VTK, OpenGL, and Matplotlib. As the company grew, I learned about good development practices and project management. With frequent use of the C++ STL and Boost, I became comfortable with some basic ideas of functional programming.
+
+My first efforts in OCaml produced a proof assistant for a course in logic. The variants and pattern-matching were nice, but soon I realized how much fun it was to write functional code without C++ metaprogramming restrictions and with full compiler support.
+
+Halfway through my winter break this year, I began another OCaml ride, this time determined to understand the object system and write an interactive, graphical application. The result was a 3d garden simulation game using OpenGL. Flowers grow and bees bumble about in search of pollen, gathering while the sun is up and hiding when rain showers come. I learned that objects in OCaml don't play the essential role they do in C++ and broke some deeply-ingrained imperative habits.
+
+Why Me?
+-------
+
+I'm interested in writing friendly tools for formal mathematical proof. I want to link helpful pictures from textbooks with the proof concepts they represent to allow more rigorous and meaningful interaction than is possible in existing computer math systems. To this end, I would be delighted to write a visualization library in OCaml.
+
+More generally, I've written scripts to visualize my waking hours and source repository activity. I groan audibly when applications miss opportunities for interesting visualization and overwhelm the user with unfiltered data. I've tried using almost every development task I've undertaken as excuse for writing a better visualization library. I look forward to a project where this impulse requires no restraint.
+
+References
+==========
+
+.. [1] reStructuredText, http://docutils.sourceforge.net/rst.html, 2007-03-05.
+
+.. [2] NIST/SEMATECH e-Handbook of Statistical Methods, http://www.itl.nist.gov/div898/handbook/, 2007-03-05.
+
+.. [3] Caltech CS20a OCaml Style Guide, http://www.cs.caltech.edu/~cs20/a/style.html, 2007-03-05.
+
+.. [4] Tufte, Edward R. The Visual Display of Quantitative Information, 2001.
